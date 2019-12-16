@@ -49,10 +49,14 @@
       <?php if (in_array('viewProfile', $user_permission)) : ?>
         <li id="profileMainNav"><a href="<?php echo base_url('users/profile/') ?>"><i class="fa fa-unlock-alt" aria-hidden="true"></i> <span> Perfil</span></a></li>
       <?php endif; ?>
+ 
+<?php 
+   /*===TIREI ESSA LINHA POR QUE VAI FICAR NO MENU DO USUÁRIO MESMO, NÃO PRECISA TER UM MENU SÓ PRA ISSO========================
       <?php if (in_array('updateSetting', $user_permission)) : ?>
-        <li id="settingMainNav"><a href="<?php echo base_url('users/setting/') ?>"><i class="fa fa-cogs"></i> <span> Confirgurações</span></a></li>
+        <li id="settingMainNav"><a href="<?php echo base_url('users/setting/') ?>"><i class="fa fa-cogs"></i> <span> Configurações</span></a></li>
       <?php endif; ?>
-
+     */
+?>
       <li><a href="<?php echo base_url('auth/logout') ?>"><i class="fa fa-sign-out"></i> <span> Sair</span></a></li>
     </ul>
   </section>

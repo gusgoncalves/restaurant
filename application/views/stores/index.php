@@ -22,7 +22,7 @@
           <div id="messages"></div>
           
           <?php if(in_array('createStore', $user_permission)): ?>
-            <button class="btn btn-success" data-toggle="modal" data-target="#addModal">NOVA LOJA</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i> NOVA</button>
             <br /> <br />
           <?php endif; ?>
 

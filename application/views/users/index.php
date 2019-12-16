@@ -32,7 +32,7 @@
           <?php endif; ?>
           
           <?php if(in_array('createUser', $user_permission)): ?>
-            <a href="<?php echo base_url('users/create') ?>" class="btn btn-success">NOVO</a>
+            <a href="<?php echo base_url('users/create') ?>" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> NOVO</a>
             <br /> <br />
           <?php endif; ?>
 

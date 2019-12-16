@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User
-        <small>Profile</small>
+        Perfil
+        <small>Usuário</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Profile</li>
+        <li class="active">Perfil</li>
       </ol>
     </section>
 
@@ -19,6 +19,9 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-md-12 col-xs-12">
+          <div id="messages"></div>
+            <a href="../setting" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Editar Perfil</a>
+            <br /> <br />
 
           <div class="box">
             <div class="box-header">
