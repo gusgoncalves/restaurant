@@ -1,10 +1,10 @@
 ######################
-Super Admin Crednetial
+Informações para Acesso
 ######################
 email: admin@admin.com
 password: password
 
-database name: restaurant
+Banco de dados: restaurant  que está dentro de Database, na pasta principal do projeto
 
 
 ###################
