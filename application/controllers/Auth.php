@@ -21,45 +21,40 @@ class Auth extends Admin_Controller
 
 		$this->logged_in();
 
-		$this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+		 $this->form_validation->set_rules('email', 'Email', 'required');
+         $this->form_validation->set_rules('password', 'Senha', 'required');		
+		if ($this->form_validation->run() == TRUE) {
+			// true case
+			$email_exists = $this->model_auth->check_email($this->input->post('email'));
 
-        if ($this->form_validation->run() == TRUE) {
-            // true case
-           	$email_exists = $this->model_auth->check_email($this->input->post('email'));
+			if($email_exists == TRUE) {
+				$login = $this->model_auth->login($this->input->post('email'), $this->input->post('password'));
 
-           	if($email_exists == TRUE) {
-           		$login = $this->model_auth->login($this->input->post('email'), $this->input->post('password'));
+				if($login) {
 
-           		if($login) {
-
-           			$logged_in_sess = array(
-           				'id' => $login['id'],
-				        'username'  => $login['username'],
-				        'email'     => $login['email'],
-				        'logged_in' => TRUE
+					$logged_in_sess = array(
+						'id' => $login['id'],
+						'username'  => $login['username'],
+						'email'     => $login['email'],
+						'logged_in' => TRUE
 					);
 
 					$this->session->set_userdata($logged_in_sess);
-           			redirect('dashboard', 'refresh');
-           		}
-           		else {
-           			$this->data['errors'] = 'Incorrect username/password combination';
-           			$this->load->view('login', $this->data);
-           		}
-           	}
-           	else {
-           		$this->data['errors'] = 'Email does not exists';
+					redirect('dashboard', 'refresh');
+				}else {
+					$this->data['errors'] = 'Senha Incorreta';
+					$this->load->view('login', $this->data);
+				}
+			}else {
+				$this->data['errors'] = 'Email não encontrado';
 
-           		$this->load->view('login', $this->data);
-           	}	
-        }
-        else {
-            // false case
-            $this->load->view('login');
-        }	
+				$this->load->view('login', $this->data);
+			}	
+		}else {
+			// false case
+			$this->load->view('login');
+		}	
 	}
-
 	/*
 		clears the session and redirects to login page
 	*/

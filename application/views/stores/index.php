@@ -5,12 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage
-        <small>Stores</small>
+        Lojas
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Stores</li>
+        <li class="active">Lojas</li>
       </ol>
     </section>
 
@@ -23,14 +22,14 @@
           <div id="messages"></div>
           
           <?php if(in_array('createStore', $user_permission)): ?>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Store</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#addModal">NOVA LOJA</button>
             <br /> <br />
           <?php endif; ?>
 
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Stores</h3>
+              <h3 class="box-title">Lista de Lojas</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -70,7 +69,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add Store</h4>
+        <h4 class="modal-title">Nova Loja</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('stores/create') ?>" method="post" id="createForm">
@@ -78,22 +77,22 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="brand_name">Store Name</label>
-            <input type="text" class="form-control" id="store_name" name="store_name" placeholder="Enter store name" autocomplete="off">
+            <label for="brand_name">Nome da Loja</label>
+            <input type="text" class="form-control" id="store_name" name="store_name" placeholder="Digite o nome da loja" autocomplete="off">
           </div>
 
           <div class="form-group">
             <label for="active">Status</label>
             <select class="form-control" id="active" name="active">
-              <option value="1">Active</option>
-              <option value="2">Inactive</option>
+              <option value="1">Ativo</option>
+              <option value="2">Inativo</option>
             </select>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
         </div>
 
       </form>
@@ -245,7 +244,6 @@ $(document).ready(function() {
   });
 
 });
-
 // edit function
 function editFunc(id)
 { 
@@ -279,8 +277,6 @@ function editFunc(id)
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
                 '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
               '</div>');
-
-
               // hide the modal
               $("#editModal").modal('hide');
               // reset the form 
@@ -316,15 +312,12 @@ function editFunc(id)
     }
   });
 }
-
 // remove functions 
 function removeFunc(id)
 {
   if(id) {
     $("#removeForm").on('submit', function() {
-
       var form = $(this);
-
       // remove the text-danger
       $(".text-danger").remove();
 
@@ -344,11 +337,7 @@ function removeFunc(id)
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
             '</div>');
-
-            
-
           } else {
-
             $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
@@ -356,11 +345,8 @@ function removeFunc(id)
           }
         }
       }); 
-
       return false;
     });
   }
 }
-
-
 </script>
