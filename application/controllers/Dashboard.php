@@ -29,6 +29,7 @@ class Dashboard extends Admin_Controller
 		$is_admin = ($user_id == 1) ? true :false;
 
 		$this->data['is_admin'] = $is_admin;
-		$this->render_template('dashboard', $this->data);
+		//função render_template é uma função específica que carrega os templates na pasta Core/MY_Controller.php linha 52
+		$this->render_template('dashboard', $this->data); 
 	}
 }

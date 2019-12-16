@@ -1,58 +1,45 @@
 <?php 
+	class Users extends Admin_Controller{
+		public function __construct()
+		{
+			parent::__construct();
+			$this->not_logged_in();
+			$this->data['page_title'] = 'Usuários';
+			$this->load->model('model_users');
+			$this->load->model('model_groups');
+			$this->load->model('model_stores');
+		}
 
-class Users extends Admin_Controller 
-{
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->not_logged_in();
-		
-		$this->data['page_title'] = 'Users';
-		
-
-		$this->load->model('model_users');
-		$this->load->model('model_groups');
-		$this->load->model('model_stores');
-	}
-
-	public function index()
-	{
+	public function index(){
 
 		if(!in_array('viewUser', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
 		$user_data = $this->model_users->getUserData();
-
 		$result = array();
 		foreach ($user_data as $k => $v) {
-
 			$result[$k]['user_info'] = $v;
-
 			$group = $this->model_users->getUserGroup($v['id']);
 			$result[$k]['user_group'] = $group;
 		}
-
 		$this->data['user_data'] = $result;
-
 		$this->render_template('users/index', $this->data);
 	}
 
-	public function create()
-	{
+	public function create(){
 
 		if(!in_array('createUser', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
-		$this->form_validation->set_rules('groups', 'Group', 'required');
-		$this->form_validation->set_rules('store', 'Store', 'trim|required');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|is_unique[users.username]');
+		$this->form_validation->set_rules('groups', 'Grupos', 'required');
+		$this->form_validation->set_rules('store', 'Lojas', 'trim|required');
+		$this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[3]|max_length[12]|is_unique[users.username]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[users.email]');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
-		$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
-		$this->form_validation->set_rules('fname', 'First name', 'trim|required');
+		$this->form_validation->set_rules('password', 'Senha', 'trim|required|min_length[5]');
+		$this->form_validation->set_rules('cpassword', 'Confirme a senha', 'trim|required|matches[password]');
+		$this->form_validation->set_rules('fname', 'Nome', 'trim|required');
 		
 
         if ($this->form_validation->run() == TRUE) {
@@ -71,11 +58,11 @@ class Users extends Admin_Controller
 
         	$create = $this->model_users->create($data, $this->input->post('groups'));
         	if($create == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
+        		$this->session->set_flashdata('success', 'Criado com sucesso');
         		redirect('users/', 'refresh');
         	}
         	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		$this->session->set_flashdata('errors', 'Ocorreu um erro!!');
         		redirect('users/create', 'refresh');
         	}
         }
@@ -107,11 +94,11 @@ class Users extends Admin_Controller
         }
 
 		if($id) {
-			$this->form_validation->set_rules('groups', 'Group', 'required');
-			$this->form_validation->set_rules('store', 'Store', 'trim|required');
-			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]');
+			$this->form_validation->set_rules('groups', 'Grupo', 'required');
+			$this->form_validation->set_rules('store', 'Loja', 'trim|required');
+			$this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[3]|max_length[12]');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required');
-			$this->form_validation->set_rules('fname', 'First name', 'trim|required');
+			$this->form_validation->set_rules('fname', 'Nome', 'trim|required');
 
 
 			if ($this->form_validation->run() == TRUE) {
@@ -129,17 +116,17 @@ class Users extends Admin_Controller
 
 		        	$update = $this->model_users->edit($data, $id, $this->input->post('groups'));
 		        	if($update == true) {
-		        		$this->session->set_flashdata('success', 'Successfully created');
+		        		$this->session->set_flashdata('success', 'Criado com sucesso');
 		        		redirect('users/', 'refresh');
 		        	}
 		        	else {
-		        		$this->session->set_flashdata('errors', 'Error occurred!!');
+		        		$this->session->set_flashdata('errors', 'Um erro ocorreu!!');
 		        		redirect('users/edit/'.$id, 'refresh');
 		        	}
 		        }
 		        else {
-		        	$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
-					$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
+		        	$this->form_validation->set_rules('password', 'Senha', 'trim|required|min_length[5]');
+					$this->form_validation->set_rules('cpassword', 'Confirme a senha', 'trim|required|matches[password]');
 
 					if($this->form_validation->run() == TRUE) {
 
@@ -158,11 +145,11 @@ class Users extends Admin_Controller
 
 			        	$update = $this->model_users->edit($data, $id, $this->input->post('groups'));
 			        	if($update == true) {
-			        		$this->session->set_flashdata('success', 'Successfully updated');
+			        		$this->session->set_flashdata('success', 'Atualizado com sucesso');
 			        		redirect('users/', 'refresh');
 			        	}
 			        	else {
-			        		$this->session->set_flashdata('errors', 'Error occurred!!');
+			        		$this->session->set_flashdata('errors', 'Um erro ocorreu!!');
 			        		redirect('users/edit/'.$id, 'refresh');
 			        	}
 					}
@@ -213,11 +200,11 @@ class Users extends Admin_Controller
 				
 					$delete = $this->model_users->delete($id);
 					if($delete == true) {
-		        		$this->session->set_flashdata('success', 'Successfully removed');
+		        		$this->session->set_flashdata('success', 'Removido com sucesso');
 		        		redirect('users/', 'refresh');
 		        	}
 		        	else {
-		        		$this->session->set_flashdata('error', 'Error occurred!!');
+		        		$this->session->set_flashdata('error', 'Um erro ocorreu!!');
 		        		redirect('users/delete/'.$id, 'refresh');
 		        	}
 
@@ -256,9 +243,9 @@ class Users extends Admin_Controller
 		$id = $this->session->userdata('id');
 
 		if($id) {
-			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]');
+			$this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[3]|max_length[12]');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required');
-			$this->form_validation->set_rules('fname', 'First name', 'trim|required');
+			$this->form_validation->set_rules('fname', 'Nome', 'trim|required');
 
 
 			if ($this->form_validation->run() == TRUE) {
@@ -275,17 +262,17 @@ class Users extends Admin_Controller
 
 		        	$update = $this->model_users->edit($data, $id, $this->input->post('groups'));
 		        	if($update == true) {
-		        		$this->session->set_flashdata('success', 'Successfully updated');
+		        		$this->session->set_flashdata('success', 'Atualizado com sucesso');
 		        		redirect('users/setting/', 'refresh');
 		        	}
 		        	else {
-		        		$this->session->set_flashdata('errors', 'Error occurred!!');
+		        		$this->session->set_flashdata('errors', 'Um erro ocorreu!!');
 		        		redirect('users/setting/', 'refresh');
 		        	}
 		        }
 		        else {
-		        	$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
-					$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
+		        	$this->form_validation->set_rules('password', 'Senha', 'trim|required|min_length[5]');
+					$this->form_validation->set_rules('cpassword', 'Confirme a senha', 'trim|required|matches[password]');
 
 					if($this->form_validation->run() == TRUE) {
 
@@ -303,11 +290,11 @@ class Users extends Admin_Controller
 
 			        	$update = $this->model_users->edit($data, $id, $this->input->post('groups'));
 			        	if($update == true) {
-			        		$this->session->set_flashdata('success', 'Successfully updated');
+			        		$this->session->set_flashdata('success', 'Atualizado com sucesso');
 			        		redirect('users/setting/', 'refresh');
 			        	}
 			        	else {
-			        		$this->session->set_flashdata('errors', 'Error occurred!!');
+			        		$this->session->set_flashdata('errors', 'Um erro ocorreu!!');
 			        		redirect('users/setting/', 'refresh');
 			        	}
 					}

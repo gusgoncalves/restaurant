@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User
-        <small>Setting</small>
+        Configurações
+        <small>Usuários</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Setting</li>
+        <li class="active">Configurações</li>
       </ol>
     </section>
 
@@ -35,7 +35,7 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Update Information</h3>
+              <h3 class="box-title">Atualizar Informações</h3>
             </div>
             <!-- /.box-header -->
             <form role="form" action="<?php base_url('users/setting') ?>" method="post">

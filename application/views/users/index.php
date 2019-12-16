@@ -5,12 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage
-        <small>Users</small>
+        Usuários
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Users</li>
+        <li class="active">Usuários</li>
       </ol>
     </section>
 
@@ -33,28 +32,28 @@
           <?php endif; ?>
           
           <?php if(in_array('createUser', $user_permission)): ?>
-            <a href="<?php echo base_url('users/create') ?>" class="btn btn-primary">Add User</a>
+            <a href="<?php echo base_url('users/create') ?>" class="btn btn-success">NOVO</a>
             <br /> <br />
           <?php endif; ?>
 
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Users</h3>
+              <h3 class="box-title">Lista de Usuários</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="userTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Username</th>
+                  <th>Usuário</th>
                   <th>Email</th>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Group</th>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Grupo</th>
 
                   <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
-                  <th>Action</th>
+                  <th>Ações</th>
                   <?php endif; ?>
                 </tr>
                 </thead>

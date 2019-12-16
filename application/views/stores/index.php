@@ -36,10 +36,10 @@
               <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Store name</th>
-                  <th>Status</th>
+                  <th>Nome da Loja</th>
+                  <th>Situação</th>
                   <?php if(in_array('updateStore', $user_permission) || in_array('deleteStore', $user_permission)): ?>
-                  <th>Action</th>
+                  <th>Ações</th>
                   <?php endif; ?>
                 </tr>
                 </thead>
@@ -110,7 +110,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Edit Store</h4>
+        <h4 class="modal-title">Alterar Loja</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('stores/update') ?>" method="post" id="updateForm">
@@ -119,22 +119,22 @@
           <div id="messages"></div>
 
           <div class="form-group">
-            <label for="brand_name">Store Name</label>
-            <input type="text" class="form-control" id="edit_store_name" name="edit_store_name" placeholder="Enter store name" autocomplete="off">
+            <label for="brand_name">Nome da Loja</label>
+            <input type="text" class="form-control" id="edit_store_name" name="edit_store_name" placeholder="Digite o nome da loja" autocomplete="off">
           </div>
 
           <div class="form-group">
             <label for="active">Status</label>
             <select class="form-control" id="edit_active" name="edit_active">
-              <option value="1">Active</option>
-              <option value="2">Inactive</option>
+              <option value="1">Ativo</option>
+              <option value="2">Inativo</option>
             </select>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
         </div>
 
       </form>
@@ -152,16 +152,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Remove Store</h4>
+        <h4 class="modal-title">Apagar Loja</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('stores/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
-          <p>Do you really want to remove?</p>
+          <p>Tem certeza que deseja remover?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
         </div>
       </form>
 
