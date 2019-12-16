@@ -7,7 +7,7 @@
 
       <li id="dashboardMainMenu">
         <a href="<?php echo base_url('dashboard') ?>">
-        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+        <i class="fa fa-tachometer"></i> <span>Dashboard</span>
         </a>
       </li> 
       <?php if (in_array('createStore', $user_permission) || in_array('updateStore', $user_permission) || in_array('viewStore', $user_permission) || in_array('deleteStore', $user_permission)) : ?>
