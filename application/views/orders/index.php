@@ -109,7 +109,7 @@ $(document).ready(function() {
   $("#OrderMainNav").addClass('active');
   $("#manageOrderSubMenu").addClass('active');
 
-  // initialize the datatable 
+  // Início da DATATABLE
   manageTable = $('#manageTable').DataTable({
     'ajax': base_url + 'orders/fetchOrdersData',
     'order': []

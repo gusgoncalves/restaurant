@@ -41,10 +41,11 @@ class Orders extends Admin_Controller {
         }
 
 		$result = array('data' => array());
+		//Data é o resultado que retorna do banco de dados getOrdersData no model_orders "SELECT * FROM orders WHERE id = ?"
 		$data = $this->model_orders->getOrdersData();
-
+		//converte o valor de data em $key e faz um laço 
 		foreach ($data as $key => $value) {
-			$store_data = $this->model_stores->getStoresData($value['store_id']);
+			$store_data = $this->model_stores->getStoresData($value['id']);
 			$count_total_item = $this->model_orders->countOrderItem($value['id']);
 			$date = date('d-m-Y', $value['date_time']);
 			$time = date('h:i s', $value['date_time']);
@@ -73,7 +74,7 @@ class Orders extends Admin_Controller {
 
 			$result['data'][$key] = array(
 				$value['id'],
-				$store_data['name'],
+				$store_data['id'],
 				$date_time,
 				$count_total_item,
 				$value['net_amount'],
@@ -306,7 +307,6 @@ class Orders extends Admin_Controller {
 			      
 			      <div class="col-sm-4 invoice-col">
 			        <b>ID Conta: </b> '.$order_data['bill_no'].'<br>
-			        <b>Nome da loja: </b> '.$store_data['name'].'<br>
 			        <b>Nome da mesa: </b> '.$table_data['table_name'].'<br>
 			        <b>Total de itens: </b> '.count($orders_items).'<br><br>
 			      </div>
