@@ -2,18 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Orders extends Admin_Controller 
-{
+class Orders extends Admin_Controller {
 	var $currency_code = '';
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 
 		$this->not_logged_in();
-
-		$this->data['page_title'] = 'Orders';
-
+		$this->data['page_title'] = 'Pedidos';
 		$this->load->model('model_orders');
 		$this->load->model('model_tables');
 		$this->load->model('model_products');
@@ -26,13 +22,12 @@ class Orders extends Admin_Controller
 	/* 
 	* It only redirects to the manage order page
 	*/
-	public function index()
-	{
+	public function index(){
 		if(!in_array('viewOrder', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
-		$this->data['page_title'] = 'Manage Orders';
+		$this->data['page_title'] = 'Gerenciar Pedidos';
 		$this->render_template('orders/index', $this->data);		
 	}
 
@@ -40,26 +35,20 @@ class Orders extends Admin_Controller
 	* Fetches the orders data from the orders table 
 	* this function is called from the datatable ajax function
 	*/
-	public function fetchOrdersData()
-	{
+	public function fetchOrdersData(){
 		if(!in_array('viewOrder', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
 		$result = array('data' => array());
-
 		$data = $this->model_orders->getOrdersData();
 
 		foreach ($data as $key => $value) {
-
 			$store_data = $this->model_stores->getStoresData($value['store_id']);
-
 			$count_total_item = $this->model_orders->countOrderItem($value['id']);
 			$date = date('d-m-Y', $value['date_time']);
-			$time = date('h:i a', $value['date_time']);
-
+			$time = date('h:i s', $value['date_time']);
 			$date_time = $date . ' ' . $time;
-
 			// button
 			$buttons = '';
 
@@ -76,14 +65,14 @@ class Orders extends Admin_Controller
 			}
 
 			if($value['paid_status'] == 1) {
-				$paid_status = '<span class="label label-success">Paid</span>';	
+				$paid_status = '<span class="label label-success">Pago</span>';	
 			}
 			else {
-				$paid_status = '<span class="label label-warning">Not Paid</span>';
+				$paid_status = '<span class="label label-warning">A Pagar</span>';
 			}
 
 			$result['data'][$key] = array(
-				$value['bill_no'],
+				$value['id'],
 				$store_data['name'],
 				$date_time,
 				$count_total_item,
@@ -107,9 +96,9 @@ class Orders extends Admin_Controller
             redirect('dashboard', 'refresh');
         }
 
-		$this->data['page_title'] = 'Add Order';
+		$this->data['page_title'] = 'Adicionar Pedido';
 
-		$this->form_validation->set_rules('product[]', 'Product name', 'trim|required');
+		$this->form_validation->set_rules('product[]', 'Nome do produto', 'trim|required');
 		
 	
         if ($this->form_validation->run() == TRUE) {        	
@@ -117,15 +106,13 @@ class Orders extends Admin_Controller
         	$order_id = $this->model_orders->create();
         	
         	if($order_id) {
-        		$this->session->set_flashdata('success', 'Successfully created');
+        		$this->session->set_flashdata('success', 'Criado com sucesso');
         		redirect('orders/update/'.$order_id, 'refresh');
-        	}
-        	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        	}else {
+        		$this->session->set_flashdata('errors', 'Ocorreu um erro!!');
         		redirect('orders/create/', 'refresh');
         	}
-        }
-        else {
+        }else {
             // false case
             $this->data['table_data'] = $this->model_tables->getActiveTable();
         	$company = $this->model_company->getCompanyData(1);
@@ -144,8 +131,7 @@ class Orders extends Admin_Controller
 	* It checks retrieves the particular product data from the product id 
 	* and return the data into the json format.
 	*/
-	public function getProductValueById()
-	{
+	public function getProductValueById(){
 		$product_id = $this->input->post('product_id');
 		if($product_id) {
 			$product_data = $this->model_products->getProductData($product_id);
@@ -158,8 +144,7 @@ class Orders extends Admin_Controller
 	* This function is used in the order page, for the product selection in the table
 	* The response is return on the json format.
 	*/
-	public function getTableProductRow()
-	{
+	public function getTableProductRow(){
 		$products = $this->model_products->getActiveProductData();
 		echo json_encode($products);
 	}
@@ -178,28 +163,21 @@ class Orders extends Admin_Controller
 		if(!$id) {
 			redirect('dashboard', 'refresh');
 		}
-
-
-
 		$this->data['page_title'] = 'Update Order';
-
 		$this->form_validation->set_rules('product[]', 'Product name', 'trim|required');
-		
-	
-        if ($this->form_validation->run() == TRUE) {        	
+
+		if ($this->form_validation->run() == TRUE) {        	
 
         	$update = $this->model_orders->update($id);
         	
         	if($update == true) {
-        		$this->session->set_flashdata('success', 'Successfully updated');
+        		$this->session->set_flashdata('success', 'Atualizado com sucesso');
+        		redirect('orders/update/'.$id, 'refresh');
+        	}else {
+        		$this->session->set_flashdata('errors', 'Ocorreu um erro!!');
         		redirect('orders/update/'.$id, 'refresh');
         	}
-        	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
-        		redirect('orders/update/'.$id, 'refresh');
-        	}
-        }
-        else {
+        }else {
             // false case
         	$this->data['table_data'] = $this->model_tables->getActiveTable();
 
@@ -212,7 +190,7 @@ class Orders extends Admin_Controller
         	$orders_data = $this->model_orders->getOrdersData($id);
 
         	if(empty($orders_data)) {
-        		$this->session->set_flashdata('errors', 'The request data does not exists');
+        		$this->session->set_flashdata('errors', 'Os dados solicitados não exitem');
         		redirect('orders', 'refresh');
         	}
 
@@ -231,9 +209,6 @@ class Orders extends Admin_Controller
     		$this->data['order_data'] = $result;
 
         	$this->data['products'] = $this->model_products->getActiveProductData();      	
-
-        	
-
             $this->render_template('orders/edit', $this->data);
         }
 	}
@@ -255,14 +230,12 @@ class Orders extends Admin_Controller
             $delete = $this->model_orders->remove($order_id);
             if($delete == true) {
                 $response['success'] = true;
-                $response['messages'] = "Successfully removed"; 
-            }
-            else {
+                $response['messages'] = "Removido com sucesso"; 
+            }else {
                 $response['success'] = false;
-                $response['messages'] = "Error in the database while removing the product information";
+                $response['messages'] = "Erro ao remover as informações solicitadas";
             }
-        }
-        else {
+        }else {
             $response['success'] = false;
             $response['messages'] = "Refersh the page again!!";
         }
@@ -305,7 +278,7 @@ class Orders extends Admin_Controller
 			<head>
 			  <meta charset="utf-8">
 			  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-			  <title>Invoice</title>
+			  <title>Contas</title>
 			  <!-- Tell the browser to be responsive to screen width -->
 			  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 			  <!-- Bootstrap 3.3.7 -->
@@ -332,10 +305,10 @@ class Orders extends Admin_Controller
 			    <div class="row invoice-info">
 			      
 			      <div class="col-sm-4 invoice-col">
-			        <b>Bill ID: </b> '.$order_data['bill_no'].'<br>
-			        <b>Store Name: </b> '.$store_data['name'].'<br>
-			        <b>Table name: </b> '.$table_data['table_name'].'<br>
-			        <b>Total items: </b> '.count($orders_items).'<br><br>
+			        <b>ID Conta: </b> '.$order_data['bill_no'].'<br>
+			        <b>Nome da loja: </b> '.$store_data['name'].'<br>
+			        <b>Nome da mesa: </b> '.$table_data['table_name'].'<br>
+			        <b>Total de itens: </b> '.count($orders_items).'<br><br>
 			      </div>
 			      <!-- /.col -->
 			    </div>
@@ -347,10 +320,10 @@ class Orders extends Admin_Controller
 			        <table class="table table-striped">
 			          <thead>
 			          <tr>
-			            <th>Product name</th>
-			            <th>Price</th>
-			            <th>Qty</th>
-			            <th>Amount</th>
+			            <th>Nome do produto</th>
+			            <th>Preço</th>
+			            <th>Qtd</th>
+			            <th>Montante</th>
 			          </tr>
 			          </thead>
 			          <tbody>'; 
@@ -381,35 +354,35 @@ class Orders extends Admin_Controller
 			        <div class="table-responsive">
 			          <table class="table">
 			            <tr>
-			              <th style="width:50%">Gross Amount:</th>
+			              <th style="width:50%">Montante Bruto:</th>
 			              <td>'.$this->currency_code . ' ' .$order_data['gross_amount'].'</td>
 			            </tr>';
 
 			            if($order_data['service_charge_amount'] > 0) {
 			            	$html .= '<tr>
-				              <th>Service Charge ('.$order_data['service_charge_rate'].'%)</th>
+				              <th>Taxa de serviço ('.$order_data['service_charge_rate'].'%)</th>
 				              <td>'.$this->currency_code .' '.$order_data['service_charge_amount'].'</td>
 				            </tr>';
 			            }
 
 			            if($order_data['vat_charge_amount'] > 0) {
 			            	$html .= '<tr>
-				              <th>Vat Charge ('.$order_data['vat_charge_rate'].'%)</th>
+				              <th>Outra taxa ('.$order_data['vat_charge_rate'].'%)</th>
 				              <td>'.$this->currency_code .' '.$order_data['vat_charge_amount'].'</td>
 				            </tr>';
 			            }
 			            
 			            
 			            $html .=' <tr>
-			              <th>Discount:</th>
+			              <th>Disconto:</th>
 			              <td>'.$discount.'</td>
 			            </tr>
 			            <tr>
-			              <th>Net Amount:</th>
+			              <th>Montante Outros:</th>
 			              <td>'.$this->currency_code . ' ' .$order_data['net_amount'].'</td>
 			            </tr>
 			            <tr>
-			              <th>Paid Status:</th>
+			              <th>Situação do pagamento:</th>
 			              <td>'.$paid_status.'</td>
 			            </tr>
 			          </table>

@@ -2,26 +2,22 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Products extends Admin_Controller 
-{
-	public function __construct()
-	{
+class Products extends Admin_Controller{
+	public function __construct(){
 		parent::__construct();
 
 		$this->not_logged_in();
 
-		$this->data['page_title'] = 'Products';
+		$this->data['page_title'] = 'Produtos';
 
 		$this->load->model('model_products');
 		$this->load->model('model_category');
 		$this->load->model('model_stores');
 	}
-
     /* 
     * It only redirects to the manage product page
     */
-	public function index()
-	{
+	public function index(){
         if(!in_array('viewProduct', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
@@ -33,8 +29,7 @@ class Products extends Admin_Controller
     * It Fetches the products data from the product table 
     * this function is called from the datatable ajax function
     */
-	public function fetchProductData()
-	{
+	public function fetchProductData(){
         if(!in_array('viewProduct', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
@@ -69,7 +64,7 @@ class Products extends Admin_Controller
 
 			$img = '<img src="'.base_url($value['image']).'" alt="'.$value['name'].'" class="img-circle" width="50" height="50" />';
 
-            $availability = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
+            $availability = ($value['active'] == 1) ? '<span class="label label-success">Ativo</span>' : '<span class="label label-warning">Inativo</span>';
 
 			$result['data'][$key] = array(
 				$img,
@@ -88,8 +83,7 @@ class Products extends Admin_Controller
     * view the product based on the store 
     * the admin can view all the product information
     */
-    public function viewproduct()
-    {
+    public function viewproduct(){
         if(!in_array('viewProduct', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
@@ -113,7 +107,7 @@ class Products extends Admin_Controller
                     <head>
                       <meta charset="utf-8">
                       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                      <title>Invoice</title>
+                      <title>Contas</title>
                       <!-- Tell the browser to be responsive to screen width -->
                       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
                       <!-- Bootstrap 3.3.7 -->
@@ -179,9 +173,9 @@ class Products extends Admin_Controller
             redirect('dashboard', 'refresh');
         }
 
-		$this->form_validation->set_rules('product_name', 'Product name', 'trim|required');
-		$this->form_validation->set_rules('price', 'Price', 'trim|required|numeric');
-		$this->form_validation->set_rules('active', 'Active', 'trim|required');
+		$this->form_validation->set_rules('product_name', 'Nome do Produto', 'trim|required');
+		$this->form_validation->set_rules('price', 'Preço', 'trim|required|numeric');
+		$this->form_validation->set_rules('active', 'Ativo', 'trim|required');
 		
 	
         if ($this->form_validation->run() == TRUE) {
@@ -200,11 +194,11 @@ class Products extends Admin_Controller
 
         	$create = $this->model_products->create($data);
         	if($create == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
+        		$this->session->set_flashdata('success', 'Criado com sucesso');
         		redirect('products/', 'refresh');
         	}
         	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		$this->session->set_flashdata('errors', 'Um erro ocorreu!!');
         		redirect('products/create', 'refresh');
         	}
         }
@@ -233,7 +227,7 @@ class Products extends Admin_Controller
     	// assets/images/product_image
         $config['upload_path'] = 'assets/images/product_image';
         $config['file_name'] =  uniqid();
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = 'gif|jpg|png|png|gif';
         $config['max_size'] = '1000';
 
         // $config['max_width']  = '1024';s
@@ -271,9 +265,9 @@ class Products extends Admin_Controller
             redirect('dashboard', 'refresh');
         }
 
-        $this->form_validation->set_rules('product_name', 'Product name', 'trim|required');
-        $this->form_validation->set_rules('price', 'Price', 'trim|required');
-        $this->form_validation->set_rules('active', 'active', 'trim|required');
+        $this->form_validation->set_rules('product_name', 'Nome do produto', 'trim|required');
+        $this->form_validation->set_rules('price', 'Preço', 'trim|required');
+        $this->form_validation->set_rules('active', 'Ativo', 'trim|required');
 
         if ($this->form_validation->run() == TRUE) {
             // true case
@@ -297,11 +291,11 @@ class Products extends Admin_Controller
 
             $update = $this->model_products->update($data, $product_id);
             if($update == true) {
-                $this->session->set_flashdata('success', 'Successfully updated');
+                $this->session->set_flashdata('success', 'Atualizado com sucesso');
                 redirect('products/', 'refresh');
             }
             else {
-                $this->session->set_flashdata('errors', 'Error occurred!!');
+                $this->session->set_flashdata('errors', 'Um erro ocorreu!!');
                 redirect('products/update/'.$product_id, 'refresh');
             }
         }
@@ -333,16 +327,16 @@ class Products extends Admin_Controller
             $delete = $this->model_products->remove($product_id);
             if($delete == true) {
                 $response['success'] = true;
-                $response['messages'] = "Successfully removed"; 
+                $response['messages'] = "Removido com sucesso"; 
             }
             else {
                 $response['success'] = false;
-                $response['messages'] = "Error in the database while removing the product information";
+                $response['messages'] = "Um erro ocorreu ao processar as informações";
             }
         }
         else {
             $response['success'] = false;
-            $response['messages'] = "Refersh the page again!!";
+            $response['messages'] = "Atualize a página novamente!!";
         }
 
         echo json_encode($response);

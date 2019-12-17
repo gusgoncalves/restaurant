@@ -1,38 +1,33 @@
 <?php 
 
-class Groups extends Admin_Controller 
-{
-	public function __construct()
-	{
+class Groups extends Admin_Controller{
+	public function __construct(){
 		parent::__construct();
 
 		$this->not_logged_in();
 
-		$this->data['page_title'] = 'Groups';
+		$this->data['page_title'] = 'Grupos';
 		
 
 		$this->load->model('model_groups');
 	}
 
-	public function index()
-	{
+	public function index(){
 		if(!in_array('viewGroup', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
 		$groups_data = $this->model_groups->getGroupData();
 		$this->data['groups_data'] = $groups_data;
-
 		$this->render_template('groups/index', $this->data);
 	}
 
-	public function create()
-	{
+	public function create(){
 		if(!in_array('createGroup', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
-		$this->form_validation->set_rules('group_name', 'Group name', 'required');
+		$this->form_validation->set_rules('group_name', 'Nome do Grupo', 'required');
 
         if ($this->form_validation->run() == TRUE) {
             // true case
@@ -42,14 +37,13 @@ class Groups extends Admin_Controller
         		'group_name' => $this->input->post('group_name'),
         		'permission' => $permission
         	);
-
         	$create = $this->model_groups->create($data);
         	if($create == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
+        		$this->session->set_flashdata('success', 'Criado com sucesso');
         		redirect('groups/', 'refresh');
         	}
         	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		$this->session->set_flashdata('errors', 'Ocorreu um erro!!');
         		redirect('groups/create', 'refresh');
         	}
         }
@@ -69,7 +63,7 @@ class Groups extends Admin_Controller
 
 		if($id) {
 
-			$this->form_validation->set_rules('group_name', 'Group name', 'required');
+			$this->form_validation->set_rules('group_name', 'Nome do grupo', 'required');
 
 			if ($this->form_validation->run() == TRUE) {
 	            // true case
@@ -82,11 +76,11 @@ class Groups extends Admin_Controller
 
 	        	$update = $this->model_groups->edit($data, $id);
 	        	if($update == true) {
-	        		$this->session->set_flashdata('success', 'Successfully updated');
+	        		$this->session->set_flashdata('success', 'Atualizado com sucesso');
 	        		redirect('groups/', 'refresh');
 	        	}
 	        	else {
-	        		$this->session->set_flashdata('errors', 'Error occurred!!');
+	        		$this->session->set_flashdata('errors', 'Ocorreu um erro!!');
 	        		redirect('groups/edit/'.$id, 'refresh');
 	        	}
 	        }
@@ -112,17 +106,17 @@ class Groups extends Admin_Controller
 
 				$check = $this->model_groups->existInUserGroup($id);
 				if($check == true) {
-					$this->session->set_flashdata('error', 'Group exists in the users');
+					$this->session->set_flashdata('error', 'Grupo contém usuários');
 	        		redirect('groups/', 'refresh');
 				}
 				else {
 					$delete = $this->model_groups->delete($id);
 					if($delete == true) {
-		        		$this->session->set_flashdata('success', 'Successfully removed');
+		        		$this->session->set_flashdata('success', 'Removido com sucesso');
 		        		redirect('groups/', 'refresh');
 		        	}
 		        	else {
-		        		$this->session->set_flashdata('error', 'Error occurred!!');
+		        		$this->session->set_flashdata('error', 'Ocorreu um erro!!');
 		        		redirect('groups/delete/'.$id, 'refresh');
 		        	}
 				}	

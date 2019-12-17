@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Novo
+        Gerenciar
         <small>Usuário</small>
       </h1>
       <ol class="breadcrumb">

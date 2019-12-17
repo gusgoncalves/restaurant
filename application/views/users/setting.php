@@ -5,8 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Configurações
-        <small>Usuários</small>
+      Alteração do Perfil
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -35,7 +34,7 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Atualizar Informações</h3>
+              <h3 class="box-title">Por favor atualize as informações</h3>
             </div>
             <!-- /.box-header -->
             <form role="form" action="<?php base_url('users/setting') ?>" method="post">
@@ -109,7 +108,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-success">Salvar</button>
-                <a href="<?php echo base_url('users/') ?>" class="btn btn-warning">Voltar</a>
+                <a href="<?php echo base_url('users/profile') ?>" class="btn btn-warning">Voltar</a>
               </div>
             </form>
           </div>

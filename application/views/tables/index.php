@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage
-        <small>Tables</small>
+        Gerenciar
+        <small>Mesas</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Tables</li>
+        <li class="active">Mesas</li>
       </ol>
     </section>
 
@@ -23,7 +23,7 @@
           <div id="messages"></div>
           
           <?php if(in_array('createTable', $user_permission)): ?>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Table</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i> NOVA</button>
             <br /> <br />
             
           <?php endif; ?>
@@ -31,20 +31,20 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Tables</h3>
+              <h3 class="box-title">Listar Mesas</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Store</th>
-                  <th>Table name</th>
-                  <th>Capacity</th>
-                  <th>Available</th>
-                  <th>Status</th>
+                  <th>Loja</th>
+                  <th>Nome da mesa</th>
+                  <th>Capacidade</th>
+                  <th>Disponibilidade</th>
+                  <th>Situação</th>
                   <?php if(in_array('updateTable', $user_permission) || in_array('deleteTable', $user_permission)): ?>
-                  <th>Action</th>
+                  <th>Ações</th>
                   <?php endif; ?>
                 </tr>
                 </thead>
@@ -74,7 +74,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add table</h4>
+        <h4 class="modal-title">Nova Mesa</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('tables/create') ?>" method="post" id="createForm">
@@ -82,25 +82,25 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="brand_name">Table Name</label>
-            <input type="text" class="form-control" id="table_name" name="table_name" placeholder="Enter table name" autocomplete="off">
+            <label for="brand_name">Nome da Mesa</label>
+            <input type="text" class="form-control" id="table_name" name="table_name" placeholder="Digite o nome da mesa" autocomplete="off">
           </div>
 
           <div class="form-group">
-            <label for="brand_name">Capacity</label>
-            <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Enter capacity" autocomplete="off">
+            <label for="brand_name">Capacidade</label>
+            <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Capacidade da Mesa" autocomplete="off">
           </div>
 
           <div class="form-group">
-            <label for="active">Status</label>
+            <label for="active">Situação</label>
             <select class="form-control" id="active" name="active">
-              <option value="1">Active</option>
-              <option value="2">Inactive</option>
+              <option value="1">Ativo</option>
+              <option value="2">Inativo</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="active">Store</label>
+            <label for="active">loja</label>
             <select class="form-control" id="store" name="store">
               <?php foreach ($store_data as $k => $v): ?>
                 <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
@@ -111,13 +111,10 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
         </div>
-
       </form>
-
-
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -130,7 +127,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Edit table</h4>
+        <h4 class="modal-title">Editar Mesa</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('tables/update') ?>" method="post" id="updateForm">
@@ -139,25 +136,25 @@
           <div id="messages"></div>
 
           <div class="form-group">
-            <label for="brand_name">Table Name</label>
-            <input type="text" class="form-control" id="edit_table_name" name="edit_table_name" placeholder="Enter table name" autocomplete="off">
+            <label for="brand_name">Nome da Mesa</label>
+            <input type="text" class="form-control" id="edit_table_name" name="edit_table_name" placeholder="Digite o nome da mesa" autocomplete="off">
           </div>
 
           <div class="form-group">
-            <label for="brand_name">Capacity</label>
-            <input type="text" class="form-control" id="edit_capacity" name="edit_capacity" placeholder="Enter capacity" autocomplete="off">
+            <label for="brand_name">Capacidade</label>
+            <input type="text" class="form-control" id="edit_capacity" name="edit_capacity" placeholder="Capacidade de pessoas" autocomplete="off">
           </div>
 
           <div class="form-group">
-            <label for="active">Status</label>
+            <label for="active">Situação</label>
             <select class="form-control" id="edit_active" name="edit_active">
-              <option value="1">Active</option>
-              <option value="2">Inactive</option>
+              <option value="1">Ativo</option>
+              <option value="2">Inativo</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="active">Store</label>
+            <label for="active">loja</label>
             <select class="form-control" id="edit_store" name="edit_store">
               <?php foreach ($store_data as $k => $v): ?>
                 <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
@@ -168,8 +165,9 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          
         </div>
 
       </form>
@@ -187,16 +185,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Remove table</h4>
+        <h4 class="modal-title">Remover Mesa</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('tables/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
-          <p>Do you really want to remove?</p>
+          <p>Tem certeza que deseja remover?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-success">Sim</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
         </div>
       </form>
 
@@ -205,8 +203,6 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <?php endif; ?>
-
-
 
 <script type="text/javascript">
 var manageTable;
@@ -397,6 +393,4 @@ function removeFunc(id)
     });
   }
 }
-
-
 </script>

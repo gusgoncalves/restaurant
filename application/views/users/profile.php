@@ -25,13 +25,13 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Profile XXX</h3>
+              <h3 class="box-title">Perfil</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table class="table table-bordered table-condensed table-hovered">
                 <tr>
-                  <th>Username</th>
+                  <th>Usuário</th>
                   <td><?php echo $user_data['username']; ?></td>
                 </tr>
                 <tr>
@@ -39,23 +39,23 @@
                   <td><?php echo $user_data['email']; ?></td>
                 </tr>
                 <tr>
-                  <th>First Name</th>
+                  <th>Nome</th>
                   <td><?php echo $user_data['firstname']; ?></td>
                 </tr>
                 <tr>
-                  <th>Last Name</th>
+                  <th>Sobrenome</th>
                   <td><?php echo $user_data['lastname']; ?></td>
                 </tr>
                 <tr>
-                  <th>Gender</th>
+                  <th>Sexo</th>
                   <td><?php echo ($user_data['gender'] == 1) ? 'Male' : 'Gender'; ?></td>
                 </tr>
                 <tr>
-                  <th>Phone</th>
+                  <th>Telefone</th>
                   <td><?php echo $user_data['phone']; ?></td>
                 </tr>
                 <tr>
-                  <th>Group</th>
+                  <th>Grupo</th>
                   <td><span class="label label-info"><?php echo $user_group['group_name']; ?></span></td>
                 </tr>
               </table>

@@ -1,42 +1,33 @@
 <?php 
 
-class Tables extends Admin_Controller 
-{
+class Tables extends Admin_Controller{
 	public function __construct()
 	{
 		parent::__construct();
-
 		$this->not_logged_in();
-		
-		$this->data['page_title'] = 'Tables';
+		$this->data['page_title'] = 'Mesas';
 		$this->load->model('model_tables');
 		$this->load->model('model_stores');
 	}
 
-	public function index()
-	{	
+	public function index(){	
 		$store_data = $this->model_stores->getActiveStore();
 		$this->data['store_data'] = $store_data;
 		$this->render_template('tables/index', $this->data);
 	}
 
-	public function fetchTableData()
-	{
+	public function fetchTableData(){
 		if(!in_array('viewTable', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 		
 		$result = array('data' => array());
-
 		$data = $this->model_tables->getTableData();
-
 		foreach ($data as $key => $value) {
 
 			$store_data = $this->model_stores->getStoresData($value['store_id']);
-
 			// button
 			$buttons = '';
-
 			if(in_array('updateTable', $this->permission)) {
 				$buttons = '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
 			}
@@ -45,8 +36,8 @@ class Tables extends Admin_Controller
 				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
 			}
 
-			$available = ($value['available'] == 1) ? '<span class="label label-success">Available</span>' : '<span class="label label-warning">Unavailable</span>';
-			$status = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
+			$available = ($value['available'] == 1) ? '<span class="label label-success">Disponível</span>' : '<span class="label label-warning">Indisponível</span>';
+			$status = ($value['active'] == 1) ? '<span class="label label-success">Ativo</span>' : '<span class="label label-warning">Inativo</span>';
 
 			$result['data'][$key] = array(
 				$store_data['name'],
@@ -69,10 +60,10 @@ class Tables extends Admin_Controller
 
 		$response = array();
 
-		$this->form_validation->set_rules('table_name', 'Table name', 'trim|required');
-		$this->form_validation->set_rules('capacity', 'Capacity', 'trim|integer');
-		$this->form_validation->set_rules('active', 'Active', 'trim|required');
-		$this->form_validation->set_rules('store', 'Store', 'trim|required');
+		$this->form_validation->set_rules('table_name', 'Nome da mesa', 'trim|required');
+		$this->form_validation->set_rules('capacity', 'Capacidade', 'trim|integer');
+		$this->form_validation->set_rules('active', 'Ativo', 'trim|required');
+		$this->form_validation->set_rules('store', 'Loja', 'trim|required');
 
 		$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
@@ -88,11 +79,11 @@ class Tables extends Admin_Controller
         	$create = $this->model_tables->create($data);
         	if($create == true) {
         		$response['success'] = true;
-        		$response['messages'] = 'Succesfully created';
+        		$response['messages'] = 'Criado com sucesso';
         	}
         	else {
         		$response['success'] = false;
-        		$response['messages'] = 'Error in the database while creating the brand information';			
+        		$response['messages'] = 'Ocorreu um erro enquanto criava as alterações';			
         	}
         }
         else {
@@ -114,8 +105,7 @@ class Tables extends Admin_Controller
 		
 	}
 
-	public function update($id)
-	{
+	public function update($id){
 		if(!in_array('updateTable', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
@@ -123,10 +113,10 @@ class Tables extends Admin_Controller
 		$response = array();
 
 		if($id) {
-			$this->form_validation->set_rules('edit_table_name', 'Table name', 'trim|required');
-			$this->form_validation->set_rules('edit_capacity', 'Capacity', 'trim|integer');
-			$this->form_validation->set_rules('edit_active', 'Active', 'trim|required');
-			$this->form_validation->set_rules('edit_store', 'Store', 'trim|required');
+			$this->form_validation->set_rules('edit_table_name', 'Nome da mesa', 'trim|required');
+			$this->form_validation->set_rules('edit_capacity', 'Capacidade', 'trim|integer');
+			$this->form_validation->set_rules('edit_active', 'Ativo', 'trim|required');
+			$this->form_validation->set_rules('edit_store', 'Loja', 'trim|required');
 
 			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
@@ -141,30 +131,26 @@ class Tables extends Admin_Controller
 	        	$update = $this->model_tables->update($id, $data);
 	        	if($update == true) {
 	        		$response['success'] = true;
-	        		$response['messages'] = 'Succesfully updated';
-	        	}
-	        	else {
+	        		$response['messages'] = 'Atualizado com sucesso';
+	        	}else {
 	        		$response['success'] = false;
-	        		$response['messages'] = 'Error in the database while updated the brand information';			
+	        		$response['messages'] = 'Ocorreu um erro ao altualizar as informações';			
 	        	}
-	        }
-	        else {
+	        }else {
 	        	$response['success'] = false;
 	        	foreach ($_POST as $key => $value) {
 	        		$response['messages'][$key] = form_error($key);
 	        	}
 	        }
-		}
-		else {
+		}else {
 			$response['success'] = false;
-    		$response['messages'] = 'Error please refresh the page again!!';
+    		$response['messages'] = 'erro, por favor atualize a página novamente!!';
 		}
 
 		echo json_encode($response);
 	}
 
-	public function remove()
-	{
+	public function remove(){
 		if(!in_array('deleteTable', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
@@ -176,19 +162,16 @@ class Tables extends Admin_Controller
 			$delete = $this->model_tables->remove($table_id);
 			if($delete == true) {
 				$response['success'] = true;
-				$response['messages'] = "Successfully removed";	
-			}
-			else {
+				$response['messages'] = "Removido com sucesso";	
+			}else {
 				$response['success'] = false;
-				$response['messages'] = "Error in the database while removing the brand information";
+				$response['messages'] = "Ocorreu um erro ao processar as informações";
 			}
-		}
-		else {
+		}else {
 			$response['success'] = false;
-			$response['messages'] = "Refersh the page again!!";
+			$response['messages'] = "Atualize a página novamente!!";
 		}
 
 		echo json_encode($response);
 	}
-
 }
