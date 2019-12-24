@@ -49,7 +49,7 @@
               <thead>
               <tr>
                 <th>Conta</th>
-                <th>Loja</th>
+                <th>Mesa</th>
                 <th>Data</th>
                 <th>Total de produtos</th>
                 <th>Total geral</th>

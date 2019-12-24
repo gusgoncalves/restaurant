@@ -45,7 +45,7 @@ class Orders extends Admin_Controller {
 		$data = $this->model_orders->getOrdersData();
 		//converte o valor de data em $key e faz um laço 
 		foreach ($data as $key => $value) {
-			$store_data = $this->model_stores->getStoresData($value['id']);
+			$tables = $this->model_tables->getTableData($value['table_id']);
 			$count_total_item = $this->model_orders->countOrderItem($value['id']);
 			$date = date('d-m-Y', $value['date_time']);
 			$time = date('h:i s', $value['date_time']);
@@ -74,7 +74,7 @@ class Orders extends Admin_Controller {
 
 			$result['data'][$key] = array(
 				$value['id'],
-				$store_data['id'],
+				$tables['table_name'],
 				$date_time,
 				$count_total_item,
 				$value['net_amount'],
@@ -258,12 +258,12 @@ class Orders extends Admin_Controller {
 			$order_data = $this->model_orders->getOrdersData($id);
 			$orders_items = $this->model_orders->getOrdersItemData($id);
 			$company_info = $this->model_company->getCompanyData(1);
-			$store_data = $this->model_stores->getStoresData($order_data['store_id']);
+			$tables = $this->model_tables->getTableData($order_data['id']);
 
 			$order_date = date('d/m/Y', $order_data['date_time']);
-			$paid_status = ($order_data['paid_status'] == 1) ? "Paid" : "Unpaid";
+			$paid_status = ($order_data['paid_status'] == 1) ? "Pago" : "A Pagar";
 
-			$table_data = $this->model_tables->getTableData($order_data['table_id']);
+			$table_data = $this->model_tables->getTableData($order_data['id']);
 
 			if ($order_data['discount'] > 0) {
 				$discount = $this->currency_code . ' ' .$order_data['discount'];
@@ -374,7 +374,7 @@ class Orders extends Admin_Controller {
 			            
 			            
 			            $html .=' <tr>
-			              <th>Disconto:</th>
+			              <th>Desconto:</th>
 			              <td>'.$discount.'</td>
 			            </tr>
 			            <tr>

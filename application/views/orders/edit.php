@@ -5,12 +5,12 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Manage
-      <small>Orders</small>
+      Gerenciar
+      <small>Pedidos</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Orders</li>
+      <li class="active">Pedidos</li>
     </ol>
   </section>
 
@@ -37,7 +37,7 @@
 
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Edit Order</h3>
+            <h3 class="box-title">Editar Pedido</h3>
           </div>
           <!-- /.box-header -->
           <form role="form" action="<?php base_url('orders/create') ?>" method="post" class="form-horizontal">
@@ -46,16 +46,13 @@
                 <?php echo validation_errors(); ?>
 
                 <div class="form-group">
-                  <label for="date" class="col-sm-12 control-label">Date: <?php echo date('Y-m-d') ?></label>
-                </div>
-                <div class="form-group">
-                  <label for="time" class="col-sm-12 control-label">Date: <?php echo date('h:i a') ?></label>
+                  <label for="date" class="col-sm-12 control-label">Data: <?php echo date('d-m-Y H:i') ?></label>
                 </div>
 
                 <div class="col-md-4 col-xs-12 pull pull-left">
 
                   <div class="form-group">
-                    <label for="gross_amount" class="col-sm-5 control-label" style="text-align:left;">Table</label>
+                    <label for="gross_amount" class="col-sm-5 control-label" style="text-align:left;">Mesa</label>
                     <div class="col-sm-7">
                       <select class="form-control" id="table_name" name="table_name">
                         <?php if($order_data['order_table']['id']): ?>
@@ -77,10 +74,10 @@
                 <table class="table table-bordered" id="product_info_table">
                   <thead>
                     <tr>
-                      <th style="width:50%">Product</th>
-                      <th style="width:10%">Qty</th>
-                      <th style="width:10%">Rate</th>
-                      <th style="width:20%">Amount</th>
+                      <th style="width:50%">Produto</th>
+                      <th style="width:10%">QTD</th>
+                      <th style="width:10%">Taxa</th>
+                      <th style="width:20%">Total</th>
                       <th style="width:10%"><button type="button" id="add_row" class="btn btn-default"><i class="fa fa-plus"></i></button></th>
                     </tr>
                   </thead>
@@ -122,7 +119,7 @@
                 <div class="col-md-6 col-xs-12 pull pull-right">
 
                   <div class="form-group">
-                    <label for="gross_amount" class="col-sm-5 control-label">Gross Amount</label>
+                    <label for="gross_amount" class="col-sm-5 control-label">Total sem desconto</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" id="gross_amount" name="gross_amount" disabled value="<?php echo $order_data['order']['gross_amount'] ?>" autocomplete="off">
                       <input type="hidden" class="form-control" id="gross_amount_value" name="gross_amount_value" value="<?php echo $order_data['order']['gross_amount'] ?>" autocomplete="off">
@@ -139,7 +136,7 @@
                   <?php endif; ?>
                   <?php if($is_vat_enabled == true): ?>
                   <div class="form-group">
-                    <label for="vat_charge" class="col-sm-5 control-label">Vat <?php echo $company_data['vat_charge_value'] ?> %</label>
+                    <label for="vat_charge" class="col-sm-5 control-label">Taxa <?php echo $company_data['vat_charge_value'] ?> %</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" id="vat_charge" name="vat_charge" disabled value="<?php echo $order_data['order']['vat_charge_amount'] ?>" autocomplete="off">
                       <input type="hidden" class="form-control" id="vat_charge_value" name="vat_charge_value" value="<?php echo $order_data['order']['vat_charge_amount'] ?>" autocomplete="off">
@@ -147,13 +144,13 @@
                   </div>
                   <?php endif; ?>
                   <div class="form-group">
-                    <label for="discount" class="col-sm-5 control-label">Discount</label>
+                    <label for="discount" class="col-sm-5 control-label">Desconto</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" id="discount" name="discount" placeholder="Discount" onkeyup="subAmount()" value="<?php echo $order_data['order']['discount'] ?>" autocomplete="off">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="net_amount" class="col-sm-5 control-label">Net Amount</label>
+                    <label for="net_amount" class="col-sm-5 control-label">Total com desconto</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" id="net_amount" name="net_amount" disabled value="<?php echo $order_data['order']['net_amount'] ?>" autocomplete="off">
                       <input type="hidden" class="form-control" id="net_amount_value" name="net_amount_value" value="<?php echo $order_data['order']['net_amount'] ?>" autocomplete="off">
@@ -161,11 +158,11 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="paid_status" class="col-sm-5 control-label">Paid Status</label>
+                    <label for="paid_status" class="col-sm-5 control-label">Situação</label>
                     <div class="col-sm-7">
                       <select type="text" class="form-control" id="paid_status" name="paid_status">
-                        <option value="1">Paid</option>
-                        <option value="2">Unpaid</option>
+                        <option value="1">Pago</option>
+                        <option value="2">A Pagar</option>
                       </select>
                     </div>
                   </div>
@@ -179,9 +176,9 @@
                 <input type="hidden" name="service_charge_rate" value="<?php echo $company_data['service_charge_value'] ?>" autocomplete="off">
                 <input type="hidden" name="vat_charge_rate" value="<?php echo $company_data['vat_charge_value'] ?>" autocomplete="off">
 
-                <a target="__blank" href="<?php echo base_url() . 'orders/printDiv/'.$order_data['order']['id'] ?>" class="btn btn-default" >Print</a>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a href="<?php echo base_url('orders/') ?>" class="btn btn-warning">Back</a>
+                <a target="__blank" href="<?php echo base_url() . 'orders/printDiv/'.$order_data['order']['id'] ?>" class="btn btn-default" >Imprimir</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="<?php echo base_url('orders/') ?>" class="btn btn-danger">Voltar</a>
               </div>
             </form>
           <!-- /.box-body -->
