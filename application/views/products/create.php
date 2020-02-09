@@ -4,14 +4,7 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      Gerenciar
-      <small>Produtos</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Produtos</li>
-    </ol>
+    
   </section>
 
   <!-- Main content -->
@@ -47,7 +40,7 @@
 
                 <div class="form-group">
 
-                  <label for="product_image">Imagem</label>
+                  <label for="product_image">Imagem do produto</label>
                   <div class="kv-avatar">
                       <div class="file-loading">
                           <input id="product_image" name="product_image" type="file">
@@ -56,7 +49,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="product_name">Nome do produto</label>
+                  <label for="product_name">Nome apresentado</label>
                   <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Digite o nome do produto" autocomplete="off" value="<?php echo $this->input->post('product_name') ?>" />
                 </div>
 

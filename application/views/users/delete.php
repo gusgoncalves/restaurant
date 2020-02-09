@@ -4,15 +4,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Manage
-        <small>Groups</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo base_url('users/') ?>">Users</a></li>
-        <li class="active">Delete</li>
-      </ol>
+     
     </section>
 
     <!-- Main content -->
@@ -33,11 +25,11 @@
             </div>
           <?php endif; ?>
 
-          <h1>Do you really want to remove ?</h1>
+          <h1>Tem certeza que deseja remover o usuário? ?</h1>
 
           <form action="<?php echo base_url('users/delete/'.$id) ?>" method="post">
-            <input type="submit" class="btn btn-primary" name="confirm" value="Confirm">
-            <a href="<?php echo base_url('users') ?>" class="btn btn-warning">Cancel</a>
+            <input type="submit" class="btn btn-success" name="confirm" value="Confirmar">
+            <a href="<?php echo base_url('users') ?>" class="btn btn-danger">Cancelar</a>
           </form>
 
         </div>

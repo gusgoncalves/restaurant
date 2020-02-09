@@ -4,14 +4,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Gerenciar
-        <small>Mesas</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Mesas</li>
-      </ol>
+     
     </section>
 
     <!-- Main content -->
@@ -100,7 +93,7 @@
           </div>
 
           <div class="form-group">
-            <label for="active">loja</label>
+            <label for="active">Loja</label>
             <select class="form-control" id="store" name="store">
               <?php foreach ($store_data as $k => $v): ?>
                 <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
@@ -154,7 +147,7 @@
           </div>
 
           <div class="form-group">
-            <label for="active">loja</label>
+            <label for="active">Loja</label>
             <select class="form-control" id="edit_store" name="edit_store">
               <?php foreach ($store_data as $k => $v): ?>
                 <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
@@ -190,7 +183,7 @@
 
       <form role="form" action="<?php echo base_url('tables/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
-          <p>Tem certeza que deseja remover?</p>
+          <p>Tem certeza que deseja remover esta mesa?</p>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Sim</button>

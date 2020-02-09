@@ -4,15 +4,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Gerenciar
-        <small>Grupos</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo base_url('groups/') ?>">Grupos</a></li>
-        <li class="active">Apagar</li>
-      </ol>
+      
     </section>
 
     <!-- Main content -->
@@ -33,7 +25,7 @@
             </div>
           <?php endif; ?>
 
-          <h1>Tem certeza que deseja remover ?</h1>
+          <h1>Tem certeza que deseja remover o grupo?</h1>
 
           <form action="<?php echo base_url('groups/delete/'.$id) ?>" method="post">
             <input type="submit" class="btn btn-success" name="confirm" value="Confirm">
