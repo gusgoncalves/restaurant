@@ -26,11 +26,11 @@ class Company extends Admin_Controller
             redirect('dashboard', 'refresh');
         }
         
-		$this->form_validation->set_rules('company_name', 'Company name', 'trim|required');
-		$this->form_validation->set_rules('service_charge_value', 'Charge Amount', 'trim|integer');
-		$this->form_validation->set_rules('vat_charge_value', 'Vat Charge', 'trim|integer');
-		$this->form_validation->set_rules('address', 'Address', 'trim|required');
-		$this->form_validation->set_rules('message', 'Message', 'trim|required');
+		$this->form_validation->set_rules('company_name', 'Nome da Empresa', 'trim|required');
+		$this->form_validation->set_rules('service_charge_value', 'Lucro', 'trim|integer');
+		$this->form_validation->set_rules('vat_charge_value', 'Imposto', 'trim|integer');
+		$this->form_validation->set_rules('address', 'Endereço', 'trim|required');
+		$this->form_validation->set_rules('message', 'Mensagem', 'trim|required');
 	
 	
         if ($this->form_validation->run() == TRUE) {
@@ -49,11 +49,11 @@ class Company extends Admin_Controller
 
         	$update = $this->model_company->update($data, 1);
         	if($update == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
+        		$this->session->set_flashdata('success', 'Criado com sucesso');
         		redirect('company/', 'refresh');
         	}
         	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		$this->session->set_flashdata('errors', 'Um erro aconteceu!!');
         		redirect('company/index', 'refresh');
         	}
         }

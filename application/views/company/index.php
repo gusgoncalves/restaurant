@@ -1,5 +1,3 @@
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -36,7 +34,7 @@
 
                 <div class="form-group">
                   <label for="company_name">Nome da Empresa</label>
-                  <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Enter company name" value="<?php echo $company_data['company_name'] ?>" autocomplete="off">
+                  <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Nome da empresa" value="<?php echo $company_data['company_name'] ?>" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="service_charge_value">Percentual de Lucro (%)</label>
@@ -48,15 +46,15 @@
                 </div>
                 <div class="form-group">
                   <label for="address">Endereço</label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Endereço" value="<?php echo $company_data['address'] ?>" autocomplete="off">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Endereço da empresa" value="<?php echo $company_data['address'] ?>" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="phone">Telefone</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" value="<?php echo $company_data['phone'] ?>" autocomplete="off">
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefone" value="<?php echo $company_data['phone'] ?>" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="country">País</label>
-                  <input type="text" class="form-control" id="country" name="country" placeholder="Enter country" value="<?php echo $company_data['country'] ?>" autocomplete="off">
+                  <input type="text" class="form-control" id="country" name="country" placeholder="País" value="<?php echo $company_data['country'] ?>" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="permission">Informações</label>
@@ -65,7 +63,7 @@
                   </textarea>
                 </div>
                 <div class="form-group">
-                  <label for="currency">Moeda</label>
+                  <label for="currency">Moeda Preferencial</label>
                   <?php ?>
                   <select class="form-control" id="currency" name="currency">
                     <option value="">~~ESCOLHA~~</option>

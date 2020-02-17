@@ -14924,52 +14924,52 @@ function program17(depth0,data) {
         factory(jQuery);
     }
 }(function ($) {
-  $.fn.wysihtml5.locale.en = $.fn.wysihtml5.locale['en-US'] = {
+  $.fn.wysihtml5.locale.en = $.fn.wysihtml5.locale['pt-BR'] = {
     font_styles: {
-      normal: 'Normal text',
-      h1: 'Heading 1',
-      h2: 'Heading 2',
-      h3: 'Heading 3',
-      h4: 'Heading 4',
-      h5: 'Heading 5',
-      h6: 'Heading 6'
+      normal: 'Texto Normal',
+      h1: 'Formato 1',
+      h2: 'Formato 2',
+      h3: 'Formato 3',
+      h4: 'Formato 4',
+      h5: 'Formato 5',
+      h6: 'Formato 6'
     },
     emphasis: {
-      bold: 'Bold',
-      italic: 'Italic',
-      underline: 'Underline',
-      small: 'Small'
+      bold: 'Negrito',
+      italic: 'Italico',
+      underline: 'Sublinhado',
+      small: 'Pequeno'
     },
     lists: {
-      unordered: 'Unordered list',
-      ordered: 'Ordered list',
-      outdent: 'Outdent',
-      indent: 'Indent'
+      unordered: 'Marcador',
+      ordered: 'Numerador',
+      outdent: 'Recuar',
+      indent: 'Identar'
     },
     link: {
-      insert: 'Insert link',
-      cancel: 'Cancel',
-      target: 'Open link in new window'
+      insert: 'Inserir Link',
+      cancel: 'Cancelar',
+      target: 'Abrir link em uma nova janela'
     },
     image: {
-      insert: 'Insert image',
-      cancel: 'Cancel'
+      insert: 'Inserir Imagem',
+      cancel: 'Cacelar'
     },
     html: {
-      edit: 'Edit HTML'
+      edit: 'Editar HTML'
     },
     colours: {
-      black: 'Black',
-      silver: 'Silver',
-      gray: 'Grey',
-      maroon: 'Maroon',
-      red: 'Red',
-      purple: 'Purple',
-      green: 'Green',
-      olive: 'Olive',
-      navy: 'Navy',
-      blue: 'Blue',
-      orange: 'Orange'
+      black: 'Preto',
+      silver: 'Prata',
+      gray: 'Cinza',
+      maroon: 'Marrom',
+      red: 'Vermelho',
+      purple: 'Roxo',
+      green: 'Verde',
+      olive: 'Oliva',
+      navy: 'Marinho',
+      blue: 'Azul',
+      orange: 'Laranja'
     }
   };
 }));
