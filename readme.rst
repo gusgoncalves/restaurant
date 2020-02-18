@@ -3,21 +3,16 @@ Informações para Acesso
 ######################
 email: admin@admin.com
 password: password
-##OK
+
 Banco de dados: restaurant  que está dentro de Database, na pasta principal do projeto
 
 
 ###################
-What is CodeIgniter
+Introdução do Sistema
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly nseeded tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+A idéia do sistema é fazer com que ele seja editado para suprir as necessidades de estoque entre outros processos, além de entender bem melhor
+do framework CodeIgniter.
 
 *******************
 Release Information
