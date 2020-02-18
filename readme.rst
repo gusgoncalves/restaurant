@@ -3,7 +3,7 @@ Informações para Acesso
 ######################
 email: admin@admin.com
 password: password
-
+##OK
 Banco de dados: restaurant  que está dentro de Database, na pasta principal do projeto
 
 
